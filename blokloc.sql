@@ -1,3 +1,7 @@
+DROP database bldb;
+CREATE database bldb;
+USE bldb;
+
 CREATE TABLE `locations` (
   `id` INT PRIMARY KEY,
   `title` VARCHAR(128),
@@ -21,7 +25,7 @@ CREATE TABLE `users` (
   `id` INT PRIMARY KEY,
   `name` VARCHAR(255),
   `ncomments` INT UNSIGNED,
-  `input_score` FLOAT(5) DEFAULT 0.5 CHECK (avg_rating >= 0 AND avg_rating <= 1),
+  `input_score` FLOAT(5) DEFAULT 0.5 CHECK (input_score >= 0 AND input_score <= 1),
   `avg_rating` FLOAT(5) CHECK (avg_rating >= 0 AND avg_rating <= 5),
   `avg_comment_rating` FLOAT(5) CHECK (avg_comment_rating >= 0 AND avg_comment_rating <= 5)
 );
@@ -39,5 +43,5 @@ CREATE TABLE `reviews` (
   `comment_rating` FLOAT(5) CHECK (comment_rating >= 0 AND comment_rating <= 5)
 );
 
-ALTER TABLE `comments` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-ALTER TABLE `comments` ADD FOREIGN KEY (`loc_id`) REFERENCES `locations` (`id`);
+ALTER TABLE `reviews` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `reviews` ADD FOREIGN KEY (`loc_id`) REFERENCES `locations` (`id`);
